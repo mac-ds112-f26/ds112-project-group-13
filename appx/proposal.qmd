@@ -1,5 +1,47 @@
 ---
-title: "Proposal"
+title: "Sleep Quality"
 ---
 
-Your proposal go here.
+## Description
+/
+> Our project will explore the relationship between sleep quality and lifestyle factors, with a focus on caffeine consumption and screen time. We will investigate whether these factors are associated with differences in sleep duration and perceived sleep quality, and identify any notable patterns or relationships in the data.
+
+## Research Questions
+/
+> What lifestyle factors are most strongly associated with sleep quality?
+How are caffeine consumption and screen time related to sleep duration and quality?
+Do sleep patterns and quality differ across people with different lifestyle habits?
+
+## Possible Data Set
+/
+> https://www.kaggle.com/datasets/uom190346a/sleep-health-and-lifestyle-dataset/data
+
+## Motivations
+/
+> As college students, we are part of a demographic that often struggles to get enough sleep. We were interested in exploring how common lifestyle factors, such as caffeine consumption and screen time, may contribute to sleep quality.
+
+## Communication Plan
+/
+> We will meet from 3:30-4:30pm every Monday
+Our primary communication channel will be email.
+
+## Roles
+/
+> Point of contact - Kai
+Technical lead - Beckett
+Style lead - Gretchen
+
+## Conflict Resolution
+/
+> If someone misses a deadline, we’ll communicate with them directly and work together to get things back on track. If we’re split on a decision, we’ll discuss the options and come to a group consensus, with a majority vote as a backup.
+
+## Implementation Plan
+/
+> Milestone 1 - 10/30
+Milestone 2 - 11/6
+Milestone 3 - 11/13
+Milestone 4 - 11/20
+Milestone 5 - 11/30
+Milestone 6 - 12/9
+Milestone 7 - 12/14
+
