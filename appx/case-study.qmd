@@ -2,4 +2,13 @@
 title: "Case Study"
 ---
 
-Your case study go here.
+# Gretchen's Case Study
+
+Data Story: The Russian army was virtually replaced in one year of war
+
+The story opens with its main claim in headline, so the reader knows the argument before seeing any data. It then uses a hero image of marching soldiers, a short intro, and a comparison (about 109,000 soldiers went to war in February, more than all the 20- and 21-year-old men in Switzerland) to set the scale. The data story is organized by time, using the same layout to represent each month: a block for the army’s size, new soldiers coming in from the top, and soldiers killed, wounded, or withdrawn coming out at the bottom. Because the layout stays consistent, readers can easily see what changes. The explanations appear right on the chart rather than in a separate legend, and short paragraphs between the frames connect the numbers to real events in the war.
+
+The pacing starts slow and speeds up. February, March, and April each get their own section, while later months are grouped together. The story also builds credibility by comparing the model’s numbers with other claims, such as Russia’s official casualty figures, and by being upfront that the model is a conservative estimate that gets less accurate as there is less information available. Overall, the data story is built to make is as easy as possible for the reader, who just has to scroll through a guided walkthrough, with the data and annotations building one clear argument.
+
+Reference: Huwiler, S., Oesch, J., & Kräuchi, A. (2023). "The Russian army was virtually replaced in one year of war," https://www.nzz.ch/english/russian-losses-in-the-first-year-of-the-war-in-ukraine-visualized-ld.1744594
+
