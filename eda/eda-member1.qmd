@@ -1,5 +1,69 @@
 ---
-title: "Member 1 First Name & Last Name Initial"
+title: "Gretchen H"
 ---
 
 Your exploratory data analysis of the team datasets go here.
+
+```{r}
+library(DataExplorer)
+library(tidyverse)
+library(janitor)
+
+sleep <- read_csv("../data/raw/Sleep_health_and_lifestyle_dataset.csv") |>
+  clean_names() |>
+  mutate(
+    bmi_category = case_when(
+      bmi_category == "Normal Weight" ~ "Normal",
+      TRUE ~ bmi_category),
+    gender = factor(gender),
+    occupation = factor(occupation),
+    bmi_category = factor(bmi_category,
+                          levels = c("Normal", "Overweight", "Obese")),
+    sleep_disorder = factor(sleep_disorder)) |>
+  separate(blood_pressure, into = c("systolic", "diastolic"),
+           sep = "/", convert = TRUE)
+
+
+
+sleep_plot <- sleep |> select(-person_id)
+```
+```{r}
+#Structure
+glimpse(sleep)
+introduce(sleep)
+```
+```{r}
+# Categorical Variables
+plot_bar(sleep_plot)
+plot_bar(sleep_plot, with = "quality_of_sleep")
+```
+> In the frequency plot, gender is nearly evenly split, but the other variables are not: Nurse, Doctor, and Engineer are the most common occupations. Most people have a Normal BMI, and most have no sleep disorder. The sleep quality plot mostly mirrors these group sizes, since it adds up scores, so it shows how common each group is rather than which group sleeps better.
+
+```{r}
+# Numerical variables
+plot_histogram(sleep_plot)
+plot_density(sleep_plot)
+```
+> Many variables, like daily steps, physical activity, blood pressure, and stress, cluster at a few specific values, and heart rate is skewed toward lower values. Sleep quality is concentrated between 6 and 9, with very few low scores.
+
+```{r}
+# Relationships
+plot_correlation(sleep_plot, type = "continuous")
+```
+> The strongest negative relationship is between stress level and quality of sleep (-0.9), meaning higher stress is closely linked to poorer sleep.
+
+```{r}
+# Numeric variables across groups
+plot_boxplot(sleep_plot, by = "sleep_disorder")
+plot_boxplot(sleep_plot, by = "gender")
+plot_boxplot(sleep_plot, by = "bmi_category")
+```
+> These boxplots reveal that people with sleep apnea or insomnia generally have much lower sleep quality and duration than those without a disorder. They also show that individuals with obesity tend to have higher blood pressure, lower daily step counts, and shorter sleep than those with a normal BMI.
+
+```{r}
+# Numeric variables vs. sleep quality
+plot_scatterplot(
+  sleep_plot |> select(quality_of_sleep, sleep_duration, stress_level,
+                       physical_activity_level, heart_rate, daily_steps),by = "quality_of_sleep")
+```
+> These scatterplots show that sleep quality is strongly tied to sleep duration. Longer sleep clearly leads to better quality. In contrast, daily steps, heart rate, physical activity, and stress level show no clear pattern with sleep quality.
