@@ -1,5 +1,134 @@
 ---
-title: "Member 3 First Name & Last Name Initial"
+title: "Beckett A"
 ---
 
 Your exploratory data analysis of the team datasets go here.
+
+## Research question
+
+What lifestyle and health factors are related to how much people sleep, and to whether they have a sleep disorder?
+
+## Setup
+
+```{r}
+#| label: setup
+#| message: false
+library(tidyverse)
+
+sleep <- read_csv("Sleep_health_and_lifestyle_dataset.csv")
+```
+
+## First look
+
+```{r}
+#| label: first-look
+glimpse(sleep)
+```
+
+The data has 374 people and 13 variables. Each row is one person. Key variables:
+
+- `Sleep Duration`: hours of sleep per day
+- `Quality of Sleep`: self-rating from 1 to 10
+- `Stress Level`: self-rating from 1 to 10
+- `Physical Activity Level`: minutes per day
+- `BMI Category`: Normal, Overweight, or Obese
+- `Sleep Disorder`: None, Insomnia, or Sleep Apnea
+
+## Data checks
+
+```{r}
+#| label: checks
+# Missing values in each column
+colSums(is.na(sleep))
+
+# BMI labels
+sleep |> count(`BMI Category`)
+```
+
+There are no missing values. `BMI Category` uses both "Normal" and "Normal Weight" for the same group, so I combine them.
+
+```{r}
+#| label: clean
+sleep <- sleep |>
+  mutate(`BMI Category` = if_else(`BMI Category` == "Normal Weight", "Normal", `BMI Category`))
+```
+
+## How much do people sleep?
+
+```{r}
+#| label: sleep-hist
+ggplot(sleep, aes(x = `Sleep Duration`)) +
+  geom_histogram(binwidth = 0.2, fill = "steelblue", color = "white") +
+  labs(x = "Sleep duration (hours)", y = "Number of people",
+       title = "Most people sleep between 6 and 8.5 hours") +
+  theme_minimal()
+```
+
+Sleep ranges from 5.8 to 8.5 hours, with an average of about 7.1 hours.
+
+## Stress and sleep
+
+```{r}
+#| label: stress-sleep
+ggplot(sleep, aes(x = factor(`Stress Level`), y = `Sleep Duration`)) +
+  geom_boxplot(fill = "lightblue") +
+  labs(x = "Stress level", y = "Sleep duration (hours)",
+       title = "People with more stress sleep less") +
+  theme_minimal()
+```
+
+Stress has the clearest relationship with sleep. People at stress level 3 sleep about 8.2 hours on average, while people at stress level 8 sleep about 6.1 hours.
+
+## Physical activity and sleep
+
+```{r}
+#| label: activity-sleep
+#| message: false
+ggplot(sleep, aes(x = `Physical Activity Level`, y = `Sleep Duration`)) +
+  geom_jitter(alpha = 0.4) +
+  geom_smooth(method = "lm", se = FALSE, color = "red") +
+  labs(x = "Physical activity (minutes per day)", y = "Sleep duration (hours)",
+       title = "Physical activity has only a weak link to sleep") +
+  theme_minimal()
+```
+
+More active people sleep slightly more, but the relationship is weak.
+
+## Sleep disorders and BMI
+
+```{r}
+#| label: disorder-bmi
+ggplot(sleep, aes(x = `BMI Category`, fill = `Sleep Disorder`)) +
+  geom_bar(position = "fill") +
+  labs(x = "BMI category", y = "Share of people",
+       title = "Sleep disorders are much more common among overweight people") +
+  theme_minimal()
+```
+
+Most people with a normal BMI have no sleep disorder. Most overweight people have either insomnia or sleep apnea, and every obese person in the data has a sleep disorder.
+
+## Sleep disorders and occupation
+
+```{r}
+#| label: disorder-job
+ggplot(sleep, aes(y = Occupation, fill = `Sleep Disorder`)) +
+  geom_bar() +
+  labs(x = "Number of people", y = NULL,
+       title = "Sleep disorders by occupation") +
+  theme_minimal()
+```
+
+Sleep apnea is concentrated among nurses, and insomnia among salespeople and teachers. Some jobs have very few people (for example, only one manager), so I would not draw conclusions about those.
+
+## Reflection
+
+**What I learned:** Stress is the factor most strongly related to sleep. People with more stress sleep less. Sleep disorders are closely tied to BMI and differ a lot by occupation.
+
+**What I can't answer yet:** Whether stress causes poor sleep or the other way around. This data only shows that the two are related.
+
+**What surprised me:** Many rows are exact copies of each other. Only 132 of the 374 rows are unique, so the data may be partly made up, and the real sample size is smaller than it looks.
+
+**Follow-up questions:**
+
+1. Is the link between stress and sleep the same within each occupation?
+2. Are nurses' high sleep apnea rates explained by their age or BMI?
