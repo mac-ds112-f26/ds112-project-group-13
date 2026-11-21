@@ -1,5 +1,37 @@
 ---
-title: "Member 2 First Name & Last Name Initial"
+title: "Kai S"
 ---
 
 Your exploratory data analysis of the team datasets go here.
+
+
+```{r}
+library(dplyr)
+library(tidyverse)
+library(DataExplorer)
+
+```
+
+```{r}
+introduce(sleep)
+plot_intro(sleep)
+colSums(is.na(sleep))
+
+# A portion of our data are missing observations
+```
+
+```{r}
+plot_bar(sleep)
+
+# We can see from the bar plot that there are a relatively similar amount of men and women, with the majoirty of respondents not smoking
+```
+
+
+```{r}
+plot_correlation(
+  sleep,
+  ggtheme = theme_minimal(),
+  cor_args = list("use" = "pairwise.complete.obs")
+)
+```
+
