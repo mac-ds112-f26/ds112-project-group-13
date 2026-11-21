@@ -18,6 +18,7 @@ plot_intro(sleep)
 colSums(is.na(sleep))
 
 # A portion of our data are missing observations
+sleep <- Sleep_Efficiency 
 
 sleep1 <- sleep |>
     select(-ID, -Bedtime, -'Wakeup time')
@@ -44,5 +45,9 @@ plot_correlation(
 create_report(sleep1, y = "Sleep efficiency")
 
 # Theres a lot of info here but a few insights are that caffeine and alcohol greater reduce sleep efficiency and increase awakenings
+```
+```{r}
+ggplot(sleep1, aes(x = `Sleep efficiency`, y = `Caffeine consumption`)) +
+  geom_point()
 ```
 
